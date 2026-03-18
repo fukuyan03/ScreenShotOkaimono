@@ -65,7 +65,7 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -uroot -ppassword"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -ppassword"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -82,6 +82,15 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Wait for MySQL
+        run: |
+          for i in `seq 1 10`;
+          do
+            mysqladmin ping -h 127.0.0.1 -uroot -ppassword && break
+            echo "Waiting for mysql..."
+            sleep 3
+          done
+
       - name: Prepare test database
         env:
           RAILS_ENV: test
@@ -93,7 +102,7 @@ jobs:
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: bin/rails test test/system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v7
