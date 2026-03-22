@@ -29,32 +29,21 @@ test:
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary:
-    <<: *default
-    database: screenshot_okaimono_production
-    username: <%= ENV["DB_USERNAME"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
 
   cache:
-    <<: *default
-    database: screenshot_okaimono_production_cache
-    username: <%= ENV["DB_USERNAME"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/cache_migrate
 
   queue:
-    <<: *default
-    database: screenshot_okaimono_production_queue
-    username: <%= ENV["DB_USERNAME"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/queue_migrate
 
   cable:
-    <<: *default
-    database: screenshot_okaimono_production_cable
-    username: <%= ENV["DB_USERNAME"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/cable_migrate
+    
