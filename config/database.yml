@@ -28,11 +28,12 @@ test:
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
-  <<: *default
-  database: screenshot_okaimono_production
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: <%= ENV["DB_HOST"] %>
+  primary:
+    <<: *default
+    database: screenshot_okaimono_production
+    username: <%= ENV["DB_USERNAME"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
 
   cache:
     <<: *default
@@ -40,6 +41,7 @@ production:
     username: <%= ENV["DB_USERNAME"] %>
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
+    migrations_paths: db/cache_migrate
 
   queue:
     <<: *default
@@ -47,6 +49,7 @@ production:
     username: <%= ENV["DB_USERNAME"] %>
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
+    migrations_paths: db/queue_migrate
 
   cable:
     <<: *default
