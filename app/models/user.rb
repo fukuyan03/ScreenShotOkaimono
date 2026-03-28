@@ -6,7 +6,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
 
-  has_many :stores
+  has_many :shops, dependent: destroy
   has_many :items
   has_secure_password
 end
