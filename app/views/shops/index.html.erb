@@ -1,0 +1,22 @@
+<h1>ショップ一覧</h1>
+
+<%= link_to "＋ショップ追加", new_shop_path %>
+
+  <% if @shops.present? %>
+    <% @shops.each do |shop| %>
+      <div class="shop-card">
+        <div class="shop-name">
+          <%= shop.name %>
+        </div>
+
+        <div class="shop-actions">
+          <%= link_to "商品を見る", shop_path(shop), class: "btn" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>まだお店が登録されていません</p>
+  <% end %>
+
+</div>
+
