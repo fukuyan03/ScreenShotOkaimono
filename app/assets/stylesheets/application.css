@@ -19,3 +19,34 @@ body {
   text-align: center;
   padding: 100px;
 }
+
+.shops-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.shop-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 200px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.shop-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.shop-add-button {
+  margin-top: 30px;
+}
+
+.btn-add {
+  padding: 10px 16px;
+  background: orange;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
