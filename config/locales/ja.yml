@@ -1,0 +1,49 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      shop: ショップ
+
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+      shop:
+        name: ショップ名
+
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      taken: "はすでに登録されています"
+      too_long: "は%{count}文字以内で入力してください"
+      invalid: "は不正な値です"
+      confirmation: "が一致しません"
+      required: "を入力してください"
+
+  helpers:
+    submit:
+      create: "登録する"
+      update: "更新する"
+      submit: "保存する"
+
+  flash:
+    login:
+      success: "ログインしました"
+      failure: "ログインできませんでした"
+      logout: "ログアウトしました"
+    user:
+      create:
+        success: "ユーザー登録しました"
+        failure: "ユーザー登録に失敗しました"
+    shop:
+      create:
+        success: "ショップを作成しました"
+        failure: "ショップを登録できませんでした"
+      update:
+        success: "ショップを更新しました"
+        failure: "ショップを更新できませんでした"
+      destroy:
+        success: "ショップを削除しました"
