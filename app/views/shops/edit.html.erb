@@ -1,0 +1,10 @@
+<h1>ショップ編集</h1>
+
+<%= render "form", shop: @shop %>
+
+<%= button_to "削除", shop_path(@shop),
+              method: :delete,
+              data: { turbo_confirm: "削除しますか？" },
+              class: "shop-delete-button" %>
+
+<%= link_to "一覧へ戻る", shops_path %>
