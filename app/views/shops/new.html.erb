@@ -1,23 +1,7 @@
 <h1>ショップ登録</h1>
 
-<% if @shop.errors.any? %>
-  <div>
-    <h2><%= @shop.errors.count %>件のエラーがあります</h2>
-    <ul>
-      <% @shop.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render "form", shop: @shop %>
 
-<%= form_with model: @shop do |f| %>
-  <div>
-    <%= f.label :name, "ショップ名" %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div>
-    <%= f.submit "登録" %>
-  </div>
-<% end %>
+<div>
+  <%= link_to "一覧へ戻る", shops_path %>
+</div>

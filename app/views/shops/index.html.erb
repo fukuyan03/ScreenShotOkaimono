@@ -1,22 +1,23 @@
-<h1>ショップ一覧</h1>
+<h1 class="shops-title">ショップ一覧</h1>
 
-<%= link_to "＋ショップ追加", new_shop_path %>
+<div class="shop-add-area">
+  <%= link_to "＋ 追加", new_shop_path, class: "shop-add-button" %>
+</div>
 
-  <% if @shops.present? %>
+<% if @shops.any? %>
+  <div class="shops-grid">
     <% @shops.each do |shop| %>
       <div class="shop-card">
-        <div class="shop-name">
+        <div class="shop-card-name">
           <%= shop.name %>
         </div>
 
-        <div class="shop-actions">
-          <%= link_to "商品を見る", shop_path(shop), class: "btn" %>
+        <div class="shop-card-actions">
+          <%= link_to "編集", edit_shop_path(shop), class: "shop-link" %>
         </div>
       </div>
     <% end %>
-  <% else %>
-    <p>まだお店が登録されていません</p>
-  <% end %>
-
-</div>
-
+  </div>
+<% else %>
+  <p class="shops-empty-message">まだお店が登録されていません</p>
+<% end %>
