@@ -1,0 +1,43 @@
+<h1 class="items-title"><%= @shop.name %> の商品リスト</h1>
+
+<div class="item-add-area">
+  <%= link_to "＋ 商品追加", new_shop_item_path(@shop), class: "item-add-button" %>
+</div>
+
+<% if @items.any? %>
+  <div class="items-grid">
+    <% @items.each do |item| %>
+      <div class="item-card">
+
+        <div class="item-card-name">
+          <%= item.name %>
+        </div>
+
+        <% if item.brand.present? %>
+          <div class="item-card-brand">
+            <%= item.brand %>
+          </div>
+        <% end %>
+
+        <% if item.price.present? %>
+          <div class="item-card-price">
+            ¥<%= number_with_delimiter(item.price) %>
+          </div>
+        <% end %>
+
+        <div class="item-card-status">
+          <%= item.status %>
+        </div>
+
+        <div class="item-card-actions">
+          <%= link_to "編集",
+                edit_shop_item_path(@shop, item),
+                class: "item-link" %>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="items-empty-message">まだ商品が登録されていません</p>
+<% end %>
