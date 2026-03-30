@@ -8,9 +8,9 @@
   <div class="shops-grid">
     <% @shops.each do |shop| %>
       <div class="shop-card">
-        <div class="shop-card-name">
-          <%= shop.name %>
-        </div>
+        <%= link_to shop_items_path(shop) do %>
+          <div class="shop-card-name"><%= shop.name %></div>
+        <% end %>
 
         <div class="shop-card-actions">
           <%= link_to "編集", edit_shop_path(shop), class: "shop-link" %>

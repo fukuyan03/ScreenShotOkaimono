@@ -73,3 +73,60 @@ body {
 .shops-empty-message {
   text-align: center;
 }
+
+.items-title {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.item-add-area {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 24px 24px;
+}
+
+.item-add-button {
+  padding: 10px 16px;
+  background: orange;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.items-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 0 24px;
+}
+
+.item-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 220px;
+  border-radius: 8px;
+  background: #fff;
+  text-align: center;
+}
+
+.item-card-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.item-card-brand {
+  color: #666;
+}
+
+.item-card-price {
+  margin-top: 8px;
+}
+
+.item-card-status {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.item-card-actions {
+  margin-top: 12px;
+}
