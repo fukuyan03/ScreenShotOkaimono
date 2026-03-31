@@ -13,6 +13,23 @@ ja:
       shop:
         name: ショップ名
 
+      item:
+        name: 商品名
+        brand: ブランド
+        price: 価格
+        summary: メモ
+        source_platform: 投稿元SNS
+        source_author_name: 投稿者
+        status: 状態
+
+  enums:
+    item:
+      status:
+        want: 買いたい
+        interest: 気になる
+        purchased: 購入済み
+        unnecessary: 不要だった
+
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -47,3 +64,12 @@ ja:
         failure: "ショップを更新できませんでした"
       destroy:
         success: "ショップを削除しました"
+    item:
+      create:
+        success: 商品を登録しました
+        failure: 商品を登録できませんでした
+      update:
+        success: 商品を更新しました
+        failure: 商品を更新できませんでした
+      destroy:
+        success: 商品を削除しました
