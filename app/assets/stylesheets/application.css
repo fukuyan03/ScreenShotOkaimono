@@ -8,16 +8,49 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 24px;
 }
 
-.logo {
+.logo a {
   font-size: 20px;
   font-weight: bold;
+  text-decoration: none;
+  color: #333;
 }
 
 .top-container {
   text-align: center;
   padding: 100px;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.flash-message {
+  margin: 12px 24px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  background: white;
+}
+
+.flash-message.notice {
+  border: 1px solid #86c48a;
+}
+
+.flash-message.alert {
+  border: 1px solid #e08a8a;
 }
 
 .shops-title {

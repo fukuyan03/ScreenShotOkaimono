@@ -1,0 +1,52 @@
+<%= form_with model: [shop, item] do |f| %>
+
+  <% if item.errors.any? %>
+    <div>
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "商品名" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :brand, "ブランド" %>
+    <%= f.text_field :brand %>
+  </div>
+
+  <div>
+    <%= f.label :price, "価格" %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div>
+    <%= f.label :summary, "メモ" %>
+    <%= f.text_area :summary %>
+  </div>
+
+  <div>
+    <%= f.label :source_platform, "投稿元SNS" %>
+    <%= f.text_field :source_platform %>
+  </div>
+
+  <div>
+    <%= f.label :source_author_name, "投稿者" %>
+    <%= f.text_field :source_author_name %>
+  </div>
+
+  <div>
+    <%= f.label :status, "状態" %>
+    <%= f.select :status, Item.statuses.keys.map { |s| [t("enums.item.status.#{s}"), s] } %>
+  </div>
+
+  <div>
+    <%= f.submit "登録" %>
+  </div>
+
+<% end %>
