@@ -2,6 +2,8 @@
 
 <%= render "form", item: @item, shop: @shop %>
 
+<%= button_to "削除", shop_item_path(@shop, @item), method: :delete, data: { turbo_confirm: "削除しますか？" } %>
+
 <div>
   <%= link_to "一覧に戻る", shop_items_path(@shop) %>
 </div>

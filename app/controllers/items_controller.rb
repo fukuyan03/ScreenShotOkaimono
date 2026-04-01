@@ -37,6 +37,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    shop = current_user.shops.find(params[:shop_id])
+    item = shop.items.find(params[:id])
+    item.destroy!
+    redirect_to shop_items_path(shop), notice: t("flash.item.destroy.success"), status: :see_other
+  end
+
   private
 
   def item_params
