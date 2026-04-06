@@ -9,6 +9,11 @@ class ItemsController < ApplicationController
     @item = @shop.items.build
   end
 
+  def show
+    @shop = current_user.shops.find(params[:shop_id])
+    @item = @shop.items.find(params[:id])
+  end
+
   def create
     @shop = current_user.shops.find(params[:shop_id])
     @item = @shop.items.build(item_params)
@@ -47,6 +52,6 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :brand, :price, :summary, :source_platform, :source_author_name, :status)
+    params.require(:item).permit(:name, :brand, :price, :summary, :source_platform, :source_author_name, :status, :image)
   end
 end
