@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resource :users, only: %i[new create show]
   resources :shops, only: %i[index new create edit update destroy]
   resources :shops do
-    resources :items, only: %i[index new create edit update destroy]
+    resources :items, only: %i[index new show create edit update destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

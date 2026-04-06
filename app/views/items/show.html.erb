@@ -1,0 +1,22 @@
+<h1>商品詳細</h1>
+
+<% if @item.image.attached? %>
+  <div>
+    <%= image_tag @item.image, width: 200 %>
+  </div>
+<% end %>
+
+<div>
+  <p><strong>商品名:</strong> <%= @item.name %></p>
+  <p><strong>ブランド:</strong> <%= @item.brand %></p>
+  <p><strong>価格:</strong> <%= @item.price %></p>
+  <p><strong>メモ:</strong> <%= @item.summary %></p>
+  <p><strong>投稿元SNS:</strong> <%= @item.source_platform %></p>
+  <p><strong>投稿者:</strong> <%= @item.source_author_name %></p>
+  <p><strong>状態:</strong> <%= t("enums.item.status.#{@item.status}") %></p>
+</div>
+
+<div>
+  <%= link_to "編集", edit_shop_item_path(@shop, @item) %>
+  <%= link_to "一覧に戻る", shop_items_path(@shop) %>
+</div>
