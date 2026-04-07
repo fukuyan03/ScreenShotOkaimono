@@ -11,6 +11,17 @@ body {
   padding: 16px 24px;
 }
 
+.header-user-name {
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #333;
+}
+
 .logo a {
   font-size: 20px;
   font-weight: bold;
@@ -18,9 +29,49 @@ body {
   color: #333;
 }
 
-.top-container {
-  text-align: center;
-  padding: 100px;
+.top-wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:80vh;
+}
+
+.top-hero{
+  text-align:center;
+}
+
+.top-logo{
+  font-size:36px;
+  margin-bottom:20px;
+}
+
+.top-subtitle{
+  font-size:16px;
+  color:#555;
+  line-height:1.6;
+  margin-bottom:30px;
+}
+
+.top-buttons{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+
+.top-login-button{
+  padding:10px 24px;
+  background:#4a90e2;
+  color:white;
+  text-decoration:none;
+  border-radius:6px;
+}
+
+.top-register-button{
+  padding:10px 24px;
+  background:orange;
+  color:white;
+  text-decoration:none;
+  border-radius:6px;
 }
 
 .nav {
@@ -51,6 +102,69 @@ body {
 
 .flash-message.alert {
   border: 1px solid #e08a8a;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.auth-actions {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.auth-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: orange;
+  color: white;
+  cursor: pointer;
+}
+
+.auth-links {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.auth-errors {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fff3f3;
+  border: 1px solid #e0b4b4;
+  border-radius: 6px;
 }
 
 .shops-title {
@@ -97,6 +211,22 @@ body {
 
 .shop-card-actions {
   margin-top: 12px;
+}
+
+.shop-items-preview{
+  margin-top:10px;
+  text-align:left;
+  font-size:14px;
+}
+
+.shop-item-row{
+  margin-bottom:4px;
+}
+
+.shop-item-more{
+  margin-top:6px;
+  font-size:12px;
+  color:#777;
 }
 
 .shop-link {
@@ -162,4 +292,102 @@ body {
 
 .item-card-actions {
   margin-top: 12px;
+}
+
+.item-show-title {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.item-show-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.item-show-image {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.item-show-body p {
+  margin: 10px 0;
+}
+
+.item-show-actions {
+  margin: 24px auto 0;
+  max-width: 720px;
+  display: flex;
+  gap: 16px;
+}
+
+.item-edit-link,
+.item-back-link {
+  text-decoration: none;
+}
+
+.item-new-container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-submit {
+  margin-top: 20px;
+}
+
+.ai-analyze-button {
+  margin-top: 10px;
+}
+
+.item-form-title {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.item-form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+.item-form-back,
+.item-edit-actions {
+  max-width: 700px;
+  margin: 16px auto 0;
+}
+
+.item-form-errors {
+  max-width: 700px;
+  margin: 0 auto 16px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
 }
