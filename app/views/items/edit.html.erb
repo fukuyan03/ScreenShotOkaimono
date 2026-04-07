@@ -1,9 +1,15 @@
-<h1>商品編集</h1>
+<h1 class="item-form-title">商品編集</h1>
 
-<%= render "form", item: @item, shop: @shop %>
+<%= render "form" %>
 
-<%= button_to "削除", shop_item_path(@shop, @item), method: :delete, data: { turbo_confirm: "削除しますか？" } %>
+<div class="item-edit-actions">
+  <%= button_to "削除",
+        shop_item_path(@shop, @item),
+        method: :delete,
+        data: { turbo_confirm: "削除しますか？" },
+        class: "item-delete-button" %>
+</div>
 
-<div>
-  <%= link_to "一覧に戻る", shop_items_path(@shop) %>
+<div class="item-form-back">
+  <%= link_to "商品一覧に戻る", shop_items_path(@shop) %>
 </div>

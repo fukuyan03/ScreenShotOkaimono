@@ -6,17 +6,35 @@
 
 <% if @shops.any? %>
   <div class="shops-grid">
-    <% @shops.each do |shop| %>
-      <div class="shop-card">
-        <%= link_to shop_items_path(shop) do %>
-          <div class="shop-card-name"><%= shop.name %></div>
-        <% end %>
 
-        <div class="shop-card-actions">
-          <%= link_to "編集", edit_shop_path(shop), class: "shop-link" %>
+    <% @shops.each do |shop| %>
+
+      <div class="shop-card">
+
+        <div class="shop-card-name">
+          <%= link_to shop.name, shop_items_path(shop) %>
         </div>
+
+        <div class="shop-items-preview">
+
+          <% shop.items.limit(5).each do |item| %>
+            <div class="shop-item-row">
+              □ <%= item.name %>
+            </div>
+          <% end %>
+
+          <% if shop.items.count > 5 %>
+            <div class="shop-item-more">
+              …他 <%= shop.items.count - 5 %> 件
+            </div>
+          <% end %>
+
+        </div>
+
       </div>
+
     <% end %>
+
   </div>
 <% else %>
   <p class="shops-empty-message">まだお店が登録されていません</p>

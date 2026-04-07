@@ -1,6 +1,10 @@
 class ShopsController < ApplicationController
   def index
-    @shops = current_user.shops
+    @shops = current_user.shops.includes(:items)
+    @want_items = Item.joins(:shop)
+                      .where(shops: { user_id: current_user.id })
+                      .want
+                      .limit(10)
   end
 
   def new

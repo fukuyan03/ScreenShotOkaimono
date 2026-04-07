@@ -1,57 +1,65 @@
-<%= form_with model: [shop, item] do |f| %>
-
-  <% if item.errors.any? %>
-    <div>
+<%= form_with model: [@shop, @item], local: true do |f| %>
+  <% if @item.errors.any? %>
+    <div class="item-form-errors">
+      <h2><%= @item.errors.count %>件のエラーがあります</h2>
       <ul>
-        <% item.errors.full_messages.each do |message| %>
+        <% @item.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :image, "画像" %>
-    <%= f.file_field :image %>
-  </div>
+  <div class="item-form-container">
+    <div class="form-group">
+      <%= f.label :image, "画像アップロード" %>
+      <%= f.file_field :image %>
+    </div>
 
-  <div>
-    <%= f.label :name, "商品名" %>
-    <%= f.text_field :name %>
-  </div>
+    <% if @item.image.attached? %>
+      <div class="form-group">
+        <p>現在の画像</p>
+        <%= image_tag @item.image, width: 180 %>
+      </div>
+    <% end %>
 
-  <div>
-    <%= f.label :brand, "ブランド" %>
-    <%= f.text_field :brand %>
-  </div>
+    <div class="form-group">
+      <%= f.label :name, "商品名" %>
+      <%= f.text_field :name %>
+    </div>
 
-  <div>
-    <%= f.label :price, "価格" %>
-    <%= f.number_field :price %>
-  </div>
+    <div class="form-group">
+      <%= f.label :brand, "ブランド名" %>
+      <%= f.text_field :brand %>
+    </div>
 
-  <div>
-    <%= f.label :summary, "メモ" %>
-    <%= f.text_area :summary %>
-  </div>
+    <div class="form-group">
+      <%= f.label :price, "参考価格" %>
+      <%= f.number_field :price %>
+    </div>
 
-  <div>
-    <%= f.label :source_platform, "投稿元SNS" %>
-    <%= f.text_field :source_platform %>
-  </div>
+    <div class="form-group">
+      <%= f.label :summary, "商品特徴" %>
+      <%= f.text_area :summary %>
+    </div>
 
-  <div>
-    <%= f.label :source_author_name, "投稿者" %>
-    <%= f.text_field :source_author_name %>
-  </div>
+    <div class="form-group">
+      <%= f.label :source_platform, "SNS名" %>
+      <%= f.text_field :source_platform %>
+    </div>
 
-  <div>
-    <%= f.label :status, "状態" %>
-    <%= f.select :status, Item.statuses.keys.map { |s| [t("enums.item.status.#{s}"), s] } %>
-  </div>
+    <div class="form-group">
+      <%= f.label :source_author_name, "SNSアカウント" %>
+      <%= f.text_field :source_author_name %>
+    </div>
 
-  <div>
-    <%= f.submit "登録" %>
-  </div>
+    <div class="form-group">
+      <%= f.label :status, "ステータス" %>
+      <%= f.select :status, Item.statuses.keys.map { |s| [t("enums.item.status.#{s}"), s] } %>
+    </div>
 
+    <div class="form-actions">
+      <%= f.submit %>
+    </div>
+  </div>
 <% end %>
