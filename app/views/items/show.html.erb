@@ -1,12 +1,6 @@
 <h1 class="item-show-title">商品詳細</h1>
 
 <div class="item-show-card">
-  <% if @item.image.attached? %>
-    <div class="item-show-image">
-      <%= image_tag @item.image, width: 220 %>
-    </div>
-  <% end %>
-
   <div class="item-show-body">
     <p><strong>商品名：</strong><%= @item.name.presence || "未入力" %></p>
     <p><strong>ブランド名：</strong><%= @item.brand.presence || "未入力" %></p>
