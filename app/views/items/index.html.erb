@@ -25,10 +25,6 @@
           </div>
         <% end %>
 
-        <% if item.image.attached? %>
-          <%= image_tag item.image, width: 120 %>
-        <% end %>
-
         <div class="item-card-status">
           <%= t("enums.item.status.#{item.status}") %>
         </div>

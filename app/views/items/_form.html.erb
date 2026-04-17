@@ -1,4 +1,8 @@
-<%= form_with model: [@shop, @item], local: true do |f| %>
+<%= form_with model: [@shop, @item],
+      local: true,
+      multipart: true,
+      authenticity_token: form_authenticity_token,
+      data: { turbo: false } do |f| %>
   <% if @item.errors.any? %>
     <div class="item-form-errors">
       <h2><%= @item.errors.count %>件のエラーがあります</h2>
@@ -11,15 +15,16 @@
   <% end %>
 
   <div class="item-form-container">
-    <div class="form-group">
-      <%= f.label :image, "画像アップロード" %>
-      <%= f.file_field :image %>
-    </div>
-
-    <% if @item.image.attached? %>
+    <% if local_assigns[:show_analyze_button] %>
       <div class="form-group">
-        <p>現在の画像</p>
-        <%= image_tag @item.image, width: 180 %>
+        <%= f.label :image, "画像アップロード" %>
+        <%= f.file_field :image %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "AI解析して入力",
+              formaction: analyze_shop_items_path(@shop),
+              formmethod: "post" %>
       </div>
     <% end %>
 
@@ -58,8 +63,19 @@
       <%= f.select :status, Item.statuses.keys.map { |s| [t("enums.item.status.#{s}"), s] } %>
     </div>
 
+    <% if local_assigns[:shop_candidates].present? %>
+      <div class="form-group">
+        <p>ショップ候補</p>
+        <ul>
+          <% local_assigns[:shop_candidates].each do |candidate| %>
+            <li><%= candidate %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="form-actions">
-      <%= f.submit %>
+      <%= f.submit @item.persisted? ? "更新する" : "登録する" %>
     </div>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 <h1 class="item-form-title">商品登録</h1>
 
-<%= render "form" %>
+<%= render "form", show_analyze_button: true, shop_candidates: @shop_candidates %>
 
 <div class="item-form-back">
   <%= link_to "商品一覧に戻る", shop_items_path(@shop) %>
