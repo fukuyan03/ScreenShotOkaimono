@@ -9,7 +9,7 @@ RSpec.describe "Items", type: :request do
   end
 
   def uploaded_image
-    file = Tempfile.new(["item", ".png"])
+    file = Tempfile.new([ "item", ".png" ])
     file.binmode
     file.write("dummy image")
     file.rewind
@@ -125,7 +125,7 @@ RSpec.describe "Items", type: :request do
           summary: "シンプルな室内用スリッパ",
           source_platform: "Instagram",
           source_author_name: "muji",
-          shop_candidates: ["無印良品"]
+          shop_candidates: [ "無印良品" ]
         }
       )
 
