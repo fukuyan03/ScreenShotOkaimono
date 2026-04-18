@@ -76,3 +76,8 @@ end
 group :production do
   gem "pg", "~> 1.4"
 end
+
+group :development, :test do
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+end
