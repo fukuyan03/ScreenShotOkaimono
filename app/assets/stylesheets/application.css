@@ -41,11 +41,11 @@ body {
 }
 
 .top-logo{
-  font-size:36px;
-  margin-bottom:20px;
+  font-size:58px;
 }
 
 .top-subtitle{
+  text-align: left;
   font-size:16px;
   color:#555;
   line-height:1.6;
@@ -60,7 +60,7 @@ body {
 
 .top-login-button{
   padding:10px 24px;
-  background:#4a90e2;
+  background:orange;
   color:white;
   text-decoration:none;
   border-radius:6px;
@@ -213,6 +213,29 @@ body {
   margin-top: 12px;
 }
 
+.shop-card-divider {
+  border-top: 1px solid #ddd;
+  margin: 10px 0 12px;
+}
+
+.shop-edit-button,
+.item-add-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 6px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.shop-edit-button {
+  background: #f5f5f5;
+  color: #333;
+}
+
 .shop-items-preview{
   margin-top:10px;
   text-align:left;
@@ -237,9 +260,24 @@ body {
   text-align: center;
 }
 
-.items-title {
+.items-header {
   text-align: center;
-  margin: 24px 0;
+  margin: 24px 0 12px;
+}
+
+.shop-actions {
+  margin-left: auto;
+}
+
+.items-title {
+  margin: 0;
+}
+
+.items-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 24px 24px;
 }
 
 .item-add-area {
@@ -249,11 +287,8 @@ body {
 }
 
 .item-add-button {
-  padding: 10px 16px;
   background: orange;
   color: white;
-  text-decoration: none;
-  border-radius: 6px;
 }
 
 .items-grid {
