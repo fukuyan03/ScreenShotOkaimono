@@ -1,6 +1,9 @@
-<h1 class="items-title"><%= @shop.name %> の商品リスト</h1>
+<div class="items-header">
+  <h1 class="items-title"><%= @shop.name %> の商品リスト</h1>
+</div>
 
-<div class="item-add-area">
+<div class="items-toolbar">
+  <%= link_to "ショップ編集", edit_shop_path(@shop), class: "shop-edit-button" %>
   <%= link_to "＋ 商品追加", new_shop_item_path(@shop), class: "item-add-button" %>
 </div>
 
