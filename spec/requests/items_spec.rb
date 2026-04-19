@@ -132,7 +132,10 @@ RSpec.describe "Items", type: :request do
       post analyze_shop_items_path(shop), params: { item: { image: uploaded_image } }
 
       expect(ItemImageAnalyzer).to have_received(:call)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to redirect_to(new_shop_item_path(shop))
+
+      follow_redirect!
+
       expect(response.body).to include("スリッパ")
       expect(response.body).to include("無印良品")
     end
@@ -142,7 +145,10 @@ RSpec.describe "Items", type: :request do
 
       post analyze_shop_items_path(shop), params: { item: { name: "" } }
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to redirect_to(new_shop_item_path(shop))
+
+      follow_redirect!
+
       expect(response.body).to include("商品登録")
     end
   end
