@@ -7,50 +7,38 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = @shop.items.build
-    @shop_candidates = []
+    analyzed_attributes = session.delete(:analyzed_item_attributes) || {}
+
+    @item = @shop.items.build(analyzed_attributes)
+    @shop_candidates = session.delete(:shop_candidates) || []
   end
 
   def show; end
 
   def analyze
     @item = @shop.items.build(item_attributes)
-    @shop_candidates = []
 
     if invalid_uploaded_image?
-      flash.now[:alert] = "PNG、JPEG、WebP形式かつ10MB以下の画像を選択してください"
-      return render :new, status: :unprocessable_entity
+      flash[:alert] = "PNG、JPEG、WebP形式かつ10MB以下の画像を選択してください"
+      return redirect_to new_shop_item_path(@shop)
     end
 
     image_blob = uploaded_image_blob
 
     unless image_blob.present?
-      flash.now[:alert] = "画像を選択してください"
-      return render :new, status: :unprocessable_entity
+      flash[:alert] = "画像を選択してください"
+      return redirect_to new_shop_item_path(@shop)
     end
 
-    unless analyzable_image?(image_blob)
-      flash.now[:alert] = "PNG、JPEG、WebP形式かつ10MB以下の画像を選択してください"
-      return render :new, status: :unprocessable_entity
-    end
+    result = analyze_image(image_blob)
+    return if performed?
 
-    result = ItemImageAnalyzer.call(image: image_blob)
+    session[:analyzed_item_attributes] = result.except(:shop_candidates)
+    session[:shop_candidates] = result[:shop_candidates] || []
 
-    @shop_candidates = result[:shop_candidates] || []
-    analysis_attributes = result.except(:shop_candidates).compact_blank
+    flash[:notice] = "AI解析結果を反映しました"
+    redirect_to new_shop_item_path(@shop)
 
-    if analysis_attributes.blank?
-      flash.now[:alert] = "AI解析できましたが、商品情報を抽出できませんでした"
-      return render :new, status: :unprocessable_entity
-    end
-
-    @item.assign_attributes(analysis_attributes)
-
-    flash.now[:notice] = "AI解析結果を反映しました"
-    render :new, status: :unprocessable_entity
-  rescue ItemImageAnalyzer::AnalysisError => e
-    flash.now[:alert] = e.message
-    render :new, status: :unprocessable_entity
   ensure
     image_blob&.purge if image_blob&.persisted?
   end
@@ -121,7 +109,18 @@ class ItemsController < ApplicationController
     !uploaded_image.content_type.in?(%w[image/png image/jpeg image/webp]) || uploaded_image.size > 10.megabytes
   end
 
-  def analyzable_image?(blob)
-    blob.content_type.in?(%w[image/png image/jpeg image/webp]) && blob.byte_size <= 10.megabytes
+  def analyze_image(image_blob)
+    result = ItemImageAnalyzer.call(image: image_blob)
+
+    if result.except(:shop_candidates).compact_blank.blank?
+      flash[:alert] = "AI解析できましたが、商品情報を抽出できませんでした"
+      redirect_to new_shop_item_path(@shop)
+      return
+    end
+
+    result
+  rescue ItemImageAnalyzer::AnalysisError => e
+    flash[:alert] = e.message
+    redirect_to new_shop_item_path(@shop)
   end
 end
