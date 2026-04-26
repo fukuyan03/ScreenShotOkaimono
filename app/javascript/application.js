@@ -2,19 +2,81 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-document.addEventListener("DOMContentLoaded", () => {
+const initializeAutoResizeFields = () => {
   const textareas = document.querySelectorAll(".auto-resize");
 
   textareas.forEach((textarea) => {
+    if (textarea.dataset.autoResizeInitialized === "true") {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+      return;
+    }
+
     const resize = () => {
       textarea.style.height = "auto";
       textarea.style.height = textarea.scrollHeight + "px";
     };
 
     textarea.addEventListener("input", resize);
+    textarea.dataset.autoResizeInitialized = "true";
 
     resize();
   });
+};
+
+const copyText = async (text) => {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (error) {
+      // Fall back for browsers or contexts where the async clipboard API is unavailable.
+    }
+  }
+
+  const temporaryInput = document.createElement("textarea");
+  temporaryInput.value = text;
+  temporaryInput.setAttribute("readonly", "");
+  temporaryInput.style.position = "absolute";
+  temporaryInput.style.left = "-9999px";
+  document.body.appendChild(temporaryInput);
+  temporaryInput.select();
+  const copied = document.execCommand("copy");
+  document.body.removeChild(temporaryInput);
+
+  if (!copied) {
+    throw new Error("Copy command failed");
+  }
+};
+
+const initializeCopyButtons = () => {
+  const buttons = document.querySelectorAll("[data-copy-button]");
+
+  buttons.forEach((button) => {
+    if (button.dataset.copyInitialized === "true") return;
+
+    button.addEventListener("click", async () => {
+      const text = button.dataset.copyText;
+      if (!text) return;
+
+      try {
+        await copyText(text);
+      } catch (error) {
+        console.error("Copy failed", error);
+      }
+    });
+
+    button.dataset.copyInitialized = "true";
+  });
+};
+
+const initializePage = () => {
+  initializeAutoResizeFields();
+  initializeCopyButtons();
+};
+
+document.addEventListener("turbo:load", () => {
+  initializePage();
 
   const sliders = document.querySelectorAll("[data-step-slider]");
 
