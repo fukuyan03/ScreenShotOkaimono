@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ochre-50: #faf4ec;
+  --color-ochre-100: #e5dcd2;
+  --color-ochre-200: #d9cab6;
+  --color-ochre-300: #c9ae8c;
+  --color-ochre-500: #c9813d;
+  --color-ochre-600: #af6828;
+  --color-ochre-700: #8c4f17;
+}
+
+@layer base {
+  body {
+    font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+  }
+}

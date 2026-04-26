@@ -1,46 +1,62 @@
-<div class="items-header">
-  <h1 class="items-title"><%= @shop.name %> の商品リスト</h1>
-</div>
-
-<div class="items-toolbar">
-  <%= link_to "ショップ編集", edit_shop_path(@shop), class: "shop-edit-button" %>
-  <%= link_to "＋ 商品追加", new_shop_item_path(@shop), class: "item-add-button" %>
+<div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+  <div>
+    <p class="text-sm font-semibold uppercase tracking-[0.24em] text-ochre-700"><%= @shop.name %></p>
+    <h1 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">商品リスト</h1>
+  </div>
+  <div class="flex flex-col gap-3 sm:flex-row">
+    <%= link_to "ショップ編集",
+        edit_shop_path(@shop),
+        class: "inline-flex items-center justify-center rounded-full border border-stone-300 px-5 py-3 text-sm font-semibold text-stone-700 transition hover:border-stone-400 hover:bg-white" %>
+    <%= link_to "＋ 商品追加",
+        new_shop_item_path(@shop),
+        class: "inline-flex items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700" %>
+  </div>
 </div>
 
 <% if @items.any? %>
-  <div class="items-grid">
+  <div class="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
     <% @items.each do |item| %>
-      <div class="item-card">
+      <% status_classes =
+           case item.status
+           when "purchased" then "bg-emerald-50 text-emerald-700"
+           when "considering" then "bg-amber-50 text-amber-700"
+           else "bg-sky-50 text-sky-700"
+           end %>
+      <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm shadow-stone-200/70 transition hover:-translate-y-1 hover:shadow-lg">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div class="text-xl font-semibold text-stone-900">
+              <%= link_to item.name, shop_item_path(@shop, item), class: "transition hover:text-ochre-600" %>
+            </div>
 
-        <div class="item-card-name">
-          <%= link_to item.name, shop_item_path(@shop, item) %>
+            <% if item.brand.present? %>
+              <div class="mt-2 text-sm text-stone-500">
+                <%= item.brand %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="rounded-full px-3 py-1 text-xs font-semibold <%= status_classes %>">
+            <%= t("enums.item.status.#{item.status}") %>
+          </div>
         </div>
 
-        <% if item.brand.present? %>
-          <div class="item-card-brand">
-            <%= item.brand %>
-          </div>
-        <% end %>
-
         <% if item.price.present? %>
-          <div class="item-card-price">
+          <div class="mt-5 text-2xl font-semibold text-stone-900">
             ¥<%= number_with_delimiter(item.price) %>
           </div>
         <% end %>
 
-        <div class="item-card-status">
-          <%= t("enums.item.status.#{item.status}") %>
-        </div>
-
-        <div class="item-card-actions">
+        <div class="mt-6">
           <%= link_to "編集",
                 edit_shop_item_path(@shop, item),
-                class: "item-link" %>
+                class: "text-sm font-medium text-ochre-700 transition hover:text-ochre-500" %>
         </div>
-
       </div>
     <% end %>
   </div>
 <% else %>
-  <p class="items-empty-message">まだ商品が登録されていません</p>
+  <p class="mt-10 rounded-[1.75rem] border border-dashed border-stone-300 bg-white/70 px-6 py-12 text-center text-stone-500">
+    まだ商品が登録されていません
+  </p>
 <% end %>

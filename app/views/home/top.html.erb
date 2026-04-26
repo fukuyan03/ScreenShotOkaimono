@@ -1,31 +1,122 @@
-<div class="top-wrapper">
-
-  <div class="top-hero">
-
-    <h1 class="top-logo">
-      あの時の欲しいを<br>
-      ちゃんと叶える。
-    </h1>
-
-    <p class="top-subtitle">
-      SNSで見かけた「欲しいもの」、<br>
-      スクリーンショットのままで溜まっていませんか？<br>
-      <br>
-      このアプリでは、スクショ画像をアップするだけで<br>
-      AIが商品名やショップを読み取り、<br>
-      あなたの「欲しいもの」を自動でリスト化します。<br>
-      ショップごとにまとめてチェックできるから、<br>
-      実店舗でもオンラインでも、買い物がもっとスムーズに。<br>
-    </p>
-
-    <div style="text-align: center;">
-      <p>「欲しい」を、迷わず、後悔なく。</p>
-
-    <div class="top-buttons">
-      <%= link_to "ログイン", login_path, class: "top-login-button" %>
-      <%= link_to "新規登録", new_user_path, class: "top-register-button" %>
+<section class="relative overflow-hidden rounded-[2rem] bg-ochre-100 px-6 py-16 text-stone-900 shadow-xl shadow-stone-300/40 sm:px-10 lg:px-16 lg:py-20">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(201,129,61,0.16),_transparent_34%),radial-gradient(circle_at_left,_rgba(255,255,255,0.4),_transparent_28%)]"></div>
+  <div class="relative mx-auto grid min-h-[calc(100vh-14rem)] max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="min-w-0 max-w-3xl">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-ochre-700">
+        Screenshot Wishlist Organizer
+      </p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-7xl">
+        あの時の
+        <span class="text-red-600">欲しい</span>
+        を
+        <span class="block">ちゃんと叶える。</span>
+      </h1>
+      <div class="mt-8 max-w-2xl space-y-5 text-base leading-8 text-stone-700 sm:text-lg">
+        <p>
+        SNSで見かけた「欲しいもの」、スクリーンショットのままで溜まっていませんか？
+        </p>
+        <p>
+          このアプリでは、スクショ画像をアップするだけでAIが商品名やショップを読み取り、
+          あなたの「欲しいもの」を自動でリスト化します。
+        </p>
+        <p>
+          ショップごとにまとめてチェックできるから、実店舗でもオンラインでも、
+          買い物がもっとスムーズに進みます。
+        </p>
+      </div>
+      <p class="mt-6 text-sm font-medium tracking-[0.18em] text-stone-600 sm:text-base">
+        「欲しい」を、迷わず、後悔なく。
+      </p>
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <%= link_to "ログイン",
+            login_path,
+            class: "inline-flex items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-amber-300/50 transition hover:bg-amber-600" %>
+        <%= link_to "新規登録",
+            new_user_path,
+            class: "inline-flex items-center justify-center rounded-full bg-stone-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-stone-400/30 transition hover:bg-red-700" %>
+      </div>
     </div>
 
-  </div>
+    <div class="min-w-0 w-full rounded-[2rem] bg-stone-950 p-5 text-white shadow-2xl shadow-stone-400/25 sm:p-6" data-step-slider>
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-stone-400">How It Works</p>
+          <p class="mt-2 text-xl font-semibold text-white sm:text-2xl">3 STEPで整理する</p>
+        </div>
+        <div class="hidden items-center gap-2 sm:flex">
+          <button
+            type="button"
+            class="rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-stone-200 transition hover:bg-white/10"
+            data-step-prev
+          >
+            PREV
+          </button>
+          <button
+            type="button"
+            class="rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-stone-200 transition hover:bg-white/10"
+            data-step-next
+          >
+            NEXT
+          </button>
+        </div>
+      </div>
 
-</div>
+      <div
+        class="mt-5 flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-step-track
+      >
+        <article class="w-full min-w-full shrink-0 snap-center rounded-[1.75rem] border border-white/10 bg-white/6 p-6">
+          <div class="flex items-center justify-between gap-4">
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-red-600 text-sm font-bold text-white">01</span>
+            <%= image_tag "step-sns-phone.svg",
+                alt: "スマホに映るSNS投稿のイラスト",
+                class: "h-28 w-28 rounded-[1.5rem] object-cover ring-1 ring-white/10" %>
+          </div>
+          <p class="mt-6 text-xs font-semibold uppercase tracking-[0.24em] text-red-300">STEP 1</p>
+          <h3 class="mt-2 text-2xl font-semibold text-white">スクショを保存</h3>
+          <p class="mt-4 text-sm leading-7 text-stone-300">
+            気になった商品画像をそのままアップロード。保存した瞬間から整理の準備が始まります。
+          </p>
+        </article>
+
+        <article class="w-full min-w-full shrink-0 snap-center rounded-[1.75rem] border border-white/10 bg-white/6 p-6">
+          <div class="flex items-center justify-between gap-4">
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500 text-sm font-bold text-white">02</span>
+            <%= image_tag "step-share-send.svg",
+                alt: "SNS情報を送信するイラスト",
+                class: "h-28 w-28 rounded-[1.5rem] object-cover ring-1 ring-white/10" %>
+          </div>
+          <p class="mt-6 text-xs font-semibold uppercase tracking-[0.24em] text-amber-300">STEP 2</p>
+          <h3 class="mt-2 text-2xl font-semibold text-white">AIが整理</h3>
+          <p class="mt-4 text-sm leading-7 text-stone-300">
+            商品名、ブランド、ショップ候補を自動抽出。あとから見返しやすい形へまとめます。
+          </p>
+        </article>
+
+        <article class="w-full min-w-full shrink-0 snap-center rounded-[1.75rem] border border-white/10 bg-white/6 p-6">
+          <div class="flex items-center justify-between gap-4">
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-sm font-bold text-white">03</span>
+            <%= image_tag "step-shopping-check.svg",
+                alt: "買い物とチェックマークのイラスト",
+                class: "h-28 w-28 rounded-[1.5rem] object-cover ring-1 ring-white/10" %>
+          </div>
+          <p class="mt-6 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300">STEP 3</p>
+          <h3 class="mt-2 text-2xl font-semibold text-white">買い物しやすく</h3>
+          <p class="mt-4 text-sm leading-7 text-stone-300">
+            ショップ別に見返せるので、店舗でもオンラインでも必要な情報へすぐ辿り着けます。
+          </p>
+        </article>
+      </div>
+
+      <div class="mt-5 flex items-center justify-center gap-2" data-step-dots>
+        <button type="button" class="h-2.5 w-8 rounded-full bg-red-500 transition" data-step-dot="0" aria-label="STEP 1へ"></button>
+        <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/25 transition" data-step-dot="1" aria-label="STEP 2へ"></button>
+        <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/25 transition" data-step-dot="2" aria-label="STEP 3へ"></button>
+      </div>
+
+      <p class="mt-4 text-center text-xs tracking-[0.18em] text-stone-500">
+        左へスワイプして次のSTEPを見る
+      </p>
+    </div>
+  </div>
+</section>

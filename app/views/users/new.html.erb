@@ -1,45 +1,49 @@
-<div class="auth-container">
-  <div class="auth-card">
-    <h1 class="auth-title">新規登録</h1>
+<% field_classes = "mt-2 block w-full rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 shadow-sm outline-none transition focus:border-ochre-500 focus:ring-4 focus:ring-ochre-200" %>
+
+<section class="mx-auto max-w-md px-2 py-10 sm:px-0">
+  <div class="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-lg shadow-stone-200/70 sm:p-8">
+    <h1 class="text-center text-3xl font-semibold tracking-tight text-stone-900">新規登録</h1>
 
     <% if @user.errors.any? %>
-      <div class="auth-errors">
+      <div class="mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
         <ul>
           <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+            <li class="mt-1 first:mt-0"><%= message %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
 
     <%= form_with model: @user, local: true do |f| %>
-      <div class="form-group">
-        <%= f.label :name, "ユーザー名" %>
-        <%= f.text_field :name, class: "form-control" %>
+      <div class="mt-8 space-y-5">
+        <div>
+          <%= f.label :name, "ユーザー名", class: "text-sm font-medium text-stone-700" %>
+          <%= f.text_field :name, class: field_classes %>
+        </div>
+
+        <div>
+          <%= f.label :email, "メールアドレス", class: "text-sm font-medium text-stone-700" %>
+          <%= f.email_field :email, class: field_classes %>
+        </div>
+
+        <div>
+          <%= f.label :password, "パスワード", class: "text-sm font-medium text-stone-700" %>
+          <%= f.password_field :password, class: field_classes %>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation, "パスワード確認", class: "text-sm font-medium text-stone-700" %>
+          <%= f.password_field :password_confirmation, class: field_classes %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :email, "メールアドレス" %>
-        <%= f.email_field :email, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password, "パスワード" %>
-        <%= f.password_field :password, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password_confirmation, "パスワード確認" %>
-        <%= f.password_field :password_confirmation, class: "form-control" %>
-      </div>
-
-      <div class="auth-actions">
-        <%= f.submit "登録する", class: "auth-button" %>
+      <div class="mt-8">
+        <%= f.submit "登録する", class: "inline-flex w-full items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700" %>
       </div>
     <% end %>
 
-    <div class="auth-links">
-      <%= link_to "ログインはこちら", login_path %>
+    <div class="mt-6 text-center text-sm text-stone-600">
+      <%= link_to "ログインはこちら", login_path, class: "font-medium text-ochre-700 transition hover:text-ochre-500" %>
     </div>
   </div>
-</div>
+</section>

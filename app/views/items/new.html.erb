@@ -1,7 +1,10 @@
-<h1 class="item-form-title">商品登録</h1>
+<section class="mx-auto max-w-3xl py-4">
+  <p class="text-sm font-semibold uppercase tracking-[0.24em] text-ochre-700"><%= @shop.name %></p>
+  <h1 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900">商品登録</h1>
 
-<%= render "form", show_analyze_button: true, shop_candidates: @shop_candidates %>
+  <%= render "form", show_analyze_button: true, shop_candidates: @shop_candidates %>
 
-<div class="item-form-back">
-  <%= link_to "商品一覧に戻る", shop_items_path(@shop) %>
-</div>
+  <div class="mt-6">
+    <%= link_to "商品一覧に戻る", shop_items_path(@shop), class: "text-sm font-medium text-stone-600 transition hover:text-ochre-600" %>
+  </div>
+</section>

@@ -13,5 +13,16 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  web:
+    build: .
+    command: bin/rails s -b 0.0.0.0 -p 3000
+    ports:
+      - "3000:3000"
+    env_file: .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
 volumes:
   mysql_data:

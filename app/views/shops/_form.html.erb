@@ -1,21 +1,26 @@
+<% field_classes = "mt-2 block w-full rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 shadow-sm outline-none transition focus:border-ochre-500 focus:ring-4 focus:ring-ochre-200" %>
+
 <%= form_with model: shop do |f| %>
   <% if shop.errors.any? %>
-    <div>
-      <h2><%= shop.errors.count %>件のエラーがあります</h2>
-      <ul>
+    <div class="mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
+      <h2 class="font-semibold"><%= shop.errors.count %>件のエラーがあります</h2>
+      <ul class="mt-2">
         <% shop.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li class="mt-1 first:mt-0"><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :name, "ショップ名" %>
-    <%= f.text_field :name %>
-  </div>
+  <div class="mt-8 rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-lg shadow-stone-200/70 sm:p-8">
+    <div>
+      <%= f.label :name, "ショップ名", class: "text-sm font-medium text-stone-700" %>
+      <%= f.text_field :name, class: field_classes %>
+    </div>
 
-  <div>
-    <%= f.submit %>
+    <div class="mt-8">
+      <%= f.submit shop.persisted? ? "更新する" : "登録する",
+          class: "inline-flex items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700" %>
+    </div>
   </div>
 <% end %>

@@ -1,7 +1,10 @@
-<h1>ショップ登録</h1>
+<section class="mx-auto max-w-2xl py-4">
+  <p class="text-sm font-semibold uppercase tracking-[0.24em] text-ochre-700">New Shop</p>
+  <h1 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900">ショップ登録</h1>
 
-<%= render "form", shop: @shop %>
+  <%= render "form", shop: @shop %>
 
-<div>
-  <%= link_to "一覧へ戻る", shops_path %>
-</div>
+  <div class="mt-6">
+    <%= link_to "一覧へ戻る", shops_path, class: "text-sm font-medium text-stone-600 transition hover:text-ochre-600" %>
+  </div>
+</section>
