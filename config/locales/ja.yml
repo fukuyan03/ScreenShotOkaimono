@@ -25,7 +25,7 @@ ja:
   enums:
     item:
       status:
-        want: 買いたい
+        want: 欲しい
         interest: 気になる
         purchased: 購入済み
         unnecessary: 不要だった

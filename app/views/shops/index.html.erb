@@ -11,34 +11,88 @@
 <% if @shops.any? %>
   <div class="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
     <% @shops.each do |shop| %>
-      <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm shadow-stone-200/70 transition hover:-translate-y-1 hover:shadow-lg">
+      <div class="group rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm shadow-stone-200/70 transition hover:-translate-y-1 hover:shadow-lg">
         <div class="flex items-start justify-between gap-4">
-          <div>
+          <%= link_to shop_items_path(shop),
+                class: "min-w-0 flex-1 rounded-xl transition hover:bg-stone-50/80 focus:outline-none focus:ring-4 focus:ring-ochre-200" do %>
             <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-400">Shop</p>
-            <div class="mt-2 text-xl font-semibold text-stone-900">
-              <%= link_to shop.name, shop_items_path(shop), class: "transition hover:text-ochre-600" %>
+            <div class="mt-2 truncate text-xl font-semibold text-stone-900 transition group-hover:text-ochre-600">
+              <%= shop.name %>
             </div>
-          </div>
+          <% end %>
           <span class="rounded-full bg-ochre-50 px-3 py-1 text-xs font-semibold text-ochre-700">
-            <%= "#{shop.items.count}件" %>
+            <%= "#{(@shop_card_items[shop.id] || []).count}件" %>
           </span>
         </div>
 
+        <% visible_items = (@shop_card_items[shop.id] || []).first(5) %>
+
         <div class="mt-5 border-t border-stone-100 pt-5">
           <p class="text-sm font-medium text-stone-500">登録商品</p>
-          <% shop.items.limit(5).each do |item| %>
-            <div class="mt-3 text-sm text-stone-700 first:mt-4">
-              <span class="mr-2 text-ochre-600">□</span><%= item.name %>
+          <% visible_items.each do |item| %>
+            <div class="relative mt-3 text-sm text-stone-700 first:mt-4">
+              <%= link_to shop_items_path(shop),
+                    class: "absolute inset-0 rounded-xl transition hover:bg-stone-50/80 focus:outline-none focus:ring-4 focus:ring-ochre-200",
+                    aria: { label: "#{shop.name}の商品一覧を開く" } do %>
+              <% end %>
+
+              <div class="relative z-10 flex items-start justify-between gap-3 rounded-xl px-2 py-1">
+                <div class="flex items-start gap-2">
+                  <%= form_with model: [shop, item],
+                        url: update_status_shop_item_path(shop, item),
+                        method: :patch,
+                        local: true,
+                        class: "relative z-20 shrink-0 pt-0.5",
+                        data: { status_archive_form: true } do |f| %>
+                    <%= f.hidden_field :status, value: item.status, data: { status_archive_target: true } %>
+                    <%= button_tag type: "button",
+                      id: "status-trigger-#{item.id}",
+                      class: "flex h-5 w-5 cursor-pointer items-center justify-center text-base font-semibold leading-none text-stone-900 transition hover:text-ochre-700 focus:outline-none focus:ring-4 focus:ring-ochre-200",
+                      aria: { label: "#{item.name}のステータスを変更" },
+                      data: {
+                        status_archive_trigger: true,
+                        dialog_id: "status-dialog-#{item.id}"
+                      } do %>
+                      <span aria-hidden="true">□</span>
+                    <% end %>
+                  <% end %>
+
+                  <div class="min-w-0 relative z-10">
+                    <%= link_to item.name,
+                          shop_item_path(shop, item),
+                          class: "truncate text-stone-700 transition hover:text-ochre-600" %>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <dialog id="status-dialog-<%= item.id %>" class="w-full max-w-sm rounded-[1.5rem] border border-stone-200 p-0 shadow-xl backdrop:bg-stone-900/30">
+              <div class="p-6">
+                <p class="text-lg font-semibold text-stone-900"><%= item.name %></p>
+                <p class="mt-2 text-sm leading-6 text-stone-600">この商品を「購入済み」か「不要だった」のどちらにしますか？</p>
+
+                <div class="mt-6 flex flex-col gap-3">
+                  <button type="button" class="rounded-full bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500" data-status-select="purchased" data-dialog-id="status-dialog-<%= item.id %>">
+                    購入済みにする
+                  </button>
+                  <button type="button" class="rounded-full bg-stone-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-stone-700" data-status-select="unnecessary" data-dialog-id="status-dialog-<%= item.id %>">
+                    不要だったにする
+                  </button>
+                  <button type="button" class="rounded-full border border-stone-300 px-4 py-3 text-sm font-semibold text-stone-600 transition hover:bg-stone-50" data-status-cancel data-dialog-id="status-dialog-<%= item.id %>">
+                    キャンセル
+                  </button>
+                </div>
+              </div>
+            </dialog>
           <% end %>
 
-          <% if shop.items.empty? %>
-            <p class="mt-4 text-sm text-stone-400">まだ商品がありません。</p>
+          <% if visible_items.empty? %>
+            <p class="mt-4 text-sm text-stone-400">登録がありません。</p>
           <% end %>
 
-          <% if shop.items.count > 5 %>
+          <% if (@shop_card_items[shop.id] || []).count > 5 %>
             <div class="mt-4 text-xs font-medium text-stone-500">
-              …他 <%= shop.items.count - 5 %> 件
+              …他 <%= (@shop_card_items[shop.id] || []).count - 5 %> 件
             </div>
           <% end %>
         </div>
