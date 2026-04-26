@@ -1,9 +1,10 @@
 class ItemsController < ApplicationController
   before_action :set_shop
-  before_action :set_item, only: %i[show edit update destroy]
+  before_action :set_item, only: %i[show edit update destroy update_status]
 
   def index
-    @items = @shop.items
+    @items = @shop.items.order(:status, :created_at)
+    @items_by_status = @items.group_by(&:status)
   end
 
   def new
@@ -73,6 +74,14 @@ class ItemsController < ApplicationController
     redirect_to shop_items_path(@shop), notice: t("flash.item.destroy.success"), status: :see_other
   end
 
+  def update_status
+    if @item.update(status: status_update_params[:status])
+      redirect_back fallback_location: shops_path, notice: t("flash.item.update.success")
+    else
+      redirect_back fallback_location: shops_path, alert: t("flash.item.update.failure")
+    end
+  end
+
   private
 
   def set_shop
@@ -85,6 +94,10 @@ class ItemsController < ApplicationController
 
   def item_attributes
     params.require(:item).permit(:name, :brand, :price, :summary, :source_platform, :source_author_name, :status)
+  end
+
+  def status_update_params
+    params.require(:item).permit(:status)
   end
 
   def uploaded_image

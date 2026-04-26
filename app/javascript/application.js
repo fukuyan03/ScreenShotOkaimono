@@ -70,9 +70,76 @@ const initializeCopyButtons = () => {
   });
 };
 
+const initializeStatusArchiveForms = () => {
+  const triggers = document.querySelectorAll("[data-status-archive-trigger]");
+  const selectButtons = document.querySelectorAll("[data-status-select]");
+  const cancelButtons = document.querySelectorAll("[data-status-cancel]");
+  const dialogs = document.querySelectorAll("dialog[id^='status-dialog-']");
+
+  triggers.forEach((trigger) => {
+    if (trigger.dataset.statusArchiveInitialized === "true") return;
+
+    trigger.addEventListener("click", () => {
+      const dialog = document.getElementById(trigger.dataset.dialogId);
+
+      if (!dialog?.showModal) return;
+
+      dialog.dataset.activeTriggerId = trigger.id || "";
+      dialog.showModal();
+    });
+
+    trigger.dataset.statusArchiveInitialized = "true";
+  });
+
+  selectButtons.forEach((button) => {
+    if (button.dataset.statusSelectInitialized === "true") return;
+
+    button.addEventListener("click", () => {
+      const dialog = document.getElementById(button.dataset.dialogId);
+      if (!dialog) return;
+
+      const trigger = dialog.dataset.activeTriggerId ? document.getElementById(dialog.dataset.activeTriggerId) : null;
+      const form = trigger?.closest("form");
+      const statusField = form?.querySelector("[data-status-archive-target]");
+
+      if (!trigger || !form || !statusField) return;
+
+      statusField.value = button.dataset.statusSelect;
+      dialog.close("submitted");
+      form.requestSubmit();
+    });
+
+    button.dataset.statusSelectInitialized = "true";
+  });
+
+  cancelButtons.forEach((button) => {
+    if (button.dataset.statusCancelInitialized === "true") return;
+
+    button.addEventListener("click", () => {
+      const dialog = document.getElementById(button.dataset.dialogId);
+      if (!dialog) return;
+
+      dialog.close();
+    });
+
+    button.dataset.statusCancelInitialized = "true";
+  });
+
+  dialogs.forEach((dialog) => {
+    if (dialog.dataset.statusDialogInitialized === "true") return;
+
+    dialog.addEventListener("close", () => {
+      delete dialog.dataset.activeTriggerId;
+    });
+
+    dialog.dataset.statusDialogInitialized = "true";
+  });
+};
+
 const initializePage = () => {
   initializeAutoResizeFields();
   initializeCopyButtons();
+  initializeStatusArchiveForms();
 };
 
 document.addEventListener("turbo:load", () => {

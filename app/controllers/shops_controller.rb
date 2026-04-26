@@ -5,6 +5,16 @@ class ShopsController < ApplicationController
                       .where(shops: { user_id: current_user.id })
                       .want
                       .limit(10)
+    @shop_card_items = Item.joins(:shop)
+                           .where(shops: { user_id: current_user.id }, status: %i[want interest])
+                           .order(:status, :created_at)
+                           .group_by(&:shop_id)
+  end
+
+  def show
+    @shop = current_user.shops.find(params[:id])
+    @items = @shop.items.order(:status, :created_at)
+    @items_by_status = @items.group_by(&:status)
   end
 
   def new
