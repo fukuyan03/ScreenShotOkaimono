@@ -1,6 +1,7 @@
 <% label_classes = "text-sm font-medium text-stone-700" %>
 <% field_classes = "mt-2 block w-full rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 shadow-sm outline-none transition focus:border-ochre-500 focus:ring-4 focus:ring-ochre-200" %>
-<% textarea_classes = "#{field_classes} auto-resize min-h-28 resize-none leading-7" %>
+<% auto_resize_field_classes = "#{field_classes} auto-resize resize-none overflow-hidden leading-7" %>
+<% textarea_classes = "#{auto_resize_field_classes} min-h-28" %>
 <% button_classes = "inline-flex items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700" %>
 
 <%= form_with model: [@shop, @item],
@@ -37,12 +38,12 @@
     <div class="mt-8 grid gap-5 sm:grid-cols-2">
       <div class="sm:col-span-2">
         <%= f.label :name, "商品名", class: label_classes %>
-        <%= f.text_field :name, class: field_classes %>
+        <%= f.text_area :name, rows: 1, class: auto_resize_field_classes %>
       </div>
 
       <div>
         <%= f.label :brand, "ブランド名", class: label_classes %>
-        <%= f.text_field :brand, class: field_classes %>
+        <%= f.text_area :brand, rows: 1, class: auto_resize_field_classes %>
       </div>
 
       <div>
@@ -57,12 +58,12 @@
 
       <div>
         <%= f.label :source_platform, "SNS名", class: label_classes %>
-        <%= f.text_field :source_platform, class: field_classes %>
+        <%= f.text_area :source_platform, rows: 1, class: auto_resize_field_classes %>
       </div>
 
       <div>
         <%= f.label :source_author_name, "SNSアカウント", class: label_classes %>
-        <%= f.text_field :source_author_name, class: field_classes %>
+        <%= f.text_area :source_author_name, rows: 1, class: auto_resize_field_classes %>
       </div>
 
       <div class="sm:col-span-2">
