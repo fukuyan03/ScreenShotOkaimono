@@ -1,43 +1,52 @@
-<h1 class="shops-title">ショップ一覧</h1>
-
-<div class="shop-add-area">
-  <%= link_to "＋ 追加", new_shop_path, class: "shop-add-button" %>
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <p class="text-sm font-semibold uppercase tracking-[0.24em] text-ochre-700">Shops</p>
+    <h1 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">ショップ一覧</h1>
+  </div>
+  <%= link_to "＋ 追加",
+      new_shop_path,
+      class: "inline-flex items-center justify-center rounded-full bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700" %>
 </div>
 
 <% if @shops.any? %>
-  <div class="shops-grid">
-
+  <div class="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
     <% @shops.each do |shop| %>
-
-      <div class="shop-card">
-
-        <div class="shop-card-name">
-          <%= link_to shop.name, shop_items_path(shop) %>
+      <div class="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm shadow-stone-200/70 transition hover:-translate-y-1 hover:shadow-lg">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-400">Shop</p>
+            <div class="mt-2 text-xl font-semibold text-stone-900">
+              <%= link_to shop.name, shop_items_path(shop), class: "transition hover:text-ochre-600" %>
+            </div>
+          </div>
+          <span class="rounded-full bg-ochre-50 px-3 py-1 text-xs font-semibold text-ochre-700">
+            <%= "#{shop.items.count}件" %>
+          </span>
         </div>
 
-        <div class="shop-card-divider"></div>
-
-        <div class="shop-items-preview">
-
+        <div class="mt-5 border-t border-stone-100 pt-5">
+          <p class="text-sm font-medium text-stone-500">登録商品</p>
           <% shop.items.limit(5).each do |item| %>
-            <div class="shop-item-row">
-              □ <%= item.name %>
+            <div class="mt-3 text-sm text-stone-700 first:mt-4">
+              <span class="mr-2 text-ochre-600">□</span><%= item.name %>
             </div>
+          <% end %>
+
+          <% if shop.items.empty? %>
+            <p class="mt-4 text-sm text-stone-400">まだ商品がありません。</p>
           <% end %>
 
           <% if shop.items.count > 5 %>
-            <div class="shop-item-more">
+            <div class="mt-4 text-xs font-medium text-stone-500">
               …他 <%= shop.items.count - 5 %> 件
             </div>
           <% end %>
-
         </div>
-
       </div>
-
     <% end %>
-
   </div>
 <% else %>
-  <p class="shops-empty-message">まだお店が登録されていません</p>
+  <p class="mt-10 rounded-[1.75rem] border border-dashed border-stone-300 bg-white/70 px-6 py-12 text-center text-stone-500">
+    まだお店が登録されていません
+  </p>
 <% end %>

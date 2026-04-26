@@ -1,15 +1,16 @@
-<h1 class="item-form-title">商品編集</h1>
+<section class="mx-auto max-w-3xl py-4">
+  <p class="text-sm font-semibold uppercase tracking-[0.24em] text-ochre-700"><%= @shop.name %></p>
+  <h1 class="mt-2 text-3xl font-semibold tracking-tight text-stone-900">商品編集</h1>
 
-<%= render "form", show_analyze_button: false, shop_candidates: @shop_candidates %>
+  <%= render "form", show_analyze_button: false, shop_candidates: @shop_candidates %>
 
-<div class="item-edit-actions">
-  <%= button_to "削除",
-        shop_item_path(@shop, @item),
-        method: :delete,
-        data: { turbo_confirm: "削除しますか？" },
-        class: "item-delete-button" %>
-</div>
+  <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <%= button_to "削除",
+          shop_item_path(@shop, @item),
+          method: :delete,
+          data: { turbo_confirm: "削除しますか？" },
+          class: "inline-flex items-center justify-center rounded-full border border-rose-300 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50" %>
 
-<div class="item-form-back">
-  <%= link_to "商品一覧に戻る", shop_items_path(@shop) %>
-</div>
+    <%= link_to "商品一覧に戻る", shop_items_path(@shop), class: "text-sm font-medium text-stone-600 transition hover:text-ochre-600" %>
+  </div>
+</section>

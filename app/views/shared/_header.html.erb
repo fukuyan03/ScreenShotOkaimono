@@ -1,17 +1,31 @@
-<header class="header">
-  <div class="logo">
-    <%= link_to "ScreenShot Okaimono", logged_in? ? shops_path : root_path %>
+<header class="border-b border-stone-200/80 bg-white/80 backdrop-blur">
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3">
+      <%= link_to "ScreenShot Okaimono",
+          logged_in? ? shops_path : root_path,
+          class: "text-lg font-semibold tracking-[0.18em] text-stone-900 transition hover:text-ochre-600 sm:text-xl" %>
+
     <% if logged_in? %>
-      <span class="header-user-name">| <%= current_user.name %>さん,こんにちは</span>
+      <span class="hidden text-sm text-stone-500 sm:inline">
+        <%= current_user.name %>さん、こんにちは
+      </span>
     <% end %>
   </div>
 
-  <div class="nav">
+  <nav class="flex items-center gap-2 text-sm font-medium sm:gap-3">
     <% if logged_in? %>
-      <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
+      <%= link_to "ログアウト",
+          logout_path,
+          class: "rounded-full border border-stone-300 px-4 py-2 text-stone-700 transition hover:border-stone-400 hover:bg-stone-50",
+          data: { turbo_method: :delete } %>
     <% else %>
-      <%= link_to "ログイン", login_path %>
-      <%= link_to "新規登録", new_user_path %>
+      <%= link_to "ログイン",
+          login_path,
+          class: "rounded-full bg-amber-500 px-4 py-2 text-white transition hover:bg-amber-600" %>
+      <%= link_to "新規登録",
+          new_user_path,
+          class: "rounded-full bg-stone-900 px-4 py-2 text-white transition hover:bg-stone-700" %>
     <% end %>
-  </div>
+  </nav>
+</div>
 </header>
