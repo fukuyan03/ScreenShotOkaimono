@@ -8,21 +8,22 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: password
-  host: db
-  port: 3306
+  username: <%= ENV.fetch("DB_USERNAME", "root") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "password") %>
+  # Docker では DB_HOST=db、GitHub Actions では未指定のまま 127.0.0.1 を使います。
+  host: <%= ENV.fetch("DB_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("DB_PORT", 3306) %>
 
 development:
   <<: *default
-  database: scshot_okaimono_development
+  database: <%= ENV.fetch("DB_NAME_DEVELOPMENT", "scshot_okaimono_development") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: screenshot_okaimono_test
+  database: <%= ENV.fetch("DB_NAME_TEST", "screenshot_okaimono_test") %>
 
 
 # Store production database in the storage/ directory, which by default

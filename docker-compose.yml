@@ -17,6 +17,11 @@ services:
     working_dir: /rails
     environment:
       RAILS_ENV: development
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      DB_NAME_DEVELOPMENT: scshot_okaimono_development
     ports:
       - "3000:3000"
     env_file: .env
