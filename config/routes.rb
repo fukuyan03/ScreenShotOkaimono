@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+  match "/auth/:provider/callback", to: "sessions#omniauth", via: %i[get post]
+  match "/auth/failure", to: "sessions#failure", via: %i[get post]
 
   resource :password, only: %i[new create edit update]
   resources :users, only: %i[new create show]
