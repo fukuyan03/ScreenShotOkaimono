@@ -1,6 +1,8 @@
 require_relative "boot"
 
 require "rails/all"
+require "omniauth"
+require "omniauth-google-oauth2"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,5 +26,15 @@ module ScreemShotOkaimono
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
+
+    config.middleware.use OmniAuth::Builder do
+      provider :google_oauth2,
+               ENV.fetch("GOOGLE_CLIENT_ID"),
+               ENV.fetch("GOOGLE_CLIENT_SECRET"),
+               {
+                 scope: "email,profile",
+                 prompt: "select_account"
+               }
+    end
   end
 end
