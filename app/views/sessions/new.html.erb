@@ -1,4 +1,5 @@
 <% field_classes = "mt-2 block w-full rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 shadow-sm outline-none transition focus:border-ochre-500 focus:ring-4 focus:ring-ochre-200" %>
+<% google_oauth_enabled = ENV["GOOGLE_CLIENT_ID"].present? && ENV["GOOGLE_CLIENT_SECRET"].present? %>
 
 <section class="mx-auto max-w-md px-2 py-10 sm:px-0">
   <div class="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-lg shadow-stone-200/70 sm:p-8">
@@ -29,22 +30,24 @@
       </div>
     <% end %>
 
-    <div class="relative my-6">
-      <div class="absolute inset-0 flex items-center" aria-hidden="true">
-        <div class="w-full border-t border-stone-200"></div>
+    <% if google_oauth_enabled %>
+      <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t border-stone-200"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-white px-4 text-xs font-semibold uppercase tracking-[0.24em] text-stone-400">or</span>
+        </div>
       </div>
-      <div class="relative flex justify-center">
-        <span class="bg-white px-4 text-xs font-semibold uppercase tracking-[0.24em] text-stone-400">or</span>
-      </div>
-    </div>
 
-    <%= link_to "/auth/google_oauth2",
-        data: { turbo: false },
-        class: "flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm font-semibold text-stone-700 shadow-sm transition hover:border-stone-400 hover:bg-stone-50" do %>
-      <span class="flex items-center gap-3">
-        <%= image_tag "google-mark.svg", alt: "", class: "h-[18px] w-[18px] shrink-0" %>
-        <span>Googleでログイン</span>
-      </span>
+      <%= link_to "/auth/google_oauth2",
+          data: { turbo: false },
+          class: "flex w-full items-center justify-center rounded-2xl border border-stone-300 bg-white px-4 py-3 text-sm font-semibold text-stone-700 shadow-sm transition hover:border-stone-400 hover:bg-stone-50" do %>
+        <span class="flex items-center gap-3">
+          <%= image_tag "google-mark.svg", alt: "", class: "h-[18px] w-[18px] shrink-0" %>
+          <span>Googleでログイン</span>
+        </span>
+      <% end %>
     <% end %>
 
     <div class="mt-6 text-center text-sm text-stone-600">

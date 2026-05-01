@@ -27,14 +27,19 @@ module ScreemShotOkaimono
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
 
-    config.middleware.use OmniAuth::Builder do
-      provider :google_oauth2,
-               ENV.fetch("GOOGLE_CLIENT_ID"),
-               ENV.fetch("GOOGLE_CLIENT_SECRET"),
-               {
-                 scope: "email,profile",
-                 prompt: "select_account"
-               }
+    google_client_id = ENV["GOOGLE_CLIENT_ID"]
+    google_client_secret = ENV["GOOGLE_CLIENT_SECRET"]
+
+    if google_client_id.present? && google_client_secret.present?
+      config.middleware.use OmniAuth::Builder do
+        provider :google_oauth2,
+                 google_client_id,
+                 google_client_secret,
+                 {
+                   scope: "email,profile",
+                   prompt: "select_account"
+                 }
+      end
     end
   end
 end
