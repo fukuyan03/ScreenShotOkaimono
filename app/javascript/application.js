@@ -136,10 +136,54 @@ const initializeStatusArchiveForms = () => {
   });
 };
 
+const initializeImagePreviews = () => {
+  const inputs = document.querySelectorAll("[data-image-preview-input]");
+
+  inputs.forEach((input) => {
+    if (input.dataset.imagePreviewInitialized === "true") return;
+
+    const previewId = input.dataset.imagePreviewTarget;
+    if (!previewId) return;
+
+    const image = document.querySelector(`[data-image-preview-image][data-image-preview-for="${previewId}"]`);
+    const placeholder = document.querySelector(`[data-image-preview-placeholder][data-image-preview-for="${previewId}"]`);
+
+    if (!image || !placeholder) return;
+
+    const updatePreview = (src) => {
+      if (src) {
+        image.src = src;
+        image.style.display = "block";
+        placeholder.style.display = "none";
+      } else {
+        image.removeAttribute("src");
+        image.style.display = "none";
+        placeholder.style.display = "flex";
+      }
+    };
+
+    input.addEventListener("change", () => {
+      const [file] = input.files || [];
+
+      if (!file || !file.type.startsWith("image/")) {
+        updatePreview("");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.addEventListener("load", () => updatePreview(reader.result));
+      reader.readAsDataURL(file);
+    });
+
+    input.dataset.imagePreviewInitialized = "true";
+  });
+};
+
 const initializePage = () => {
   initializeAutoResizeFields();
   initializeCopyButtons();
   initializeStatusArchiveForms();
+  initializeImagePreviews();
 };
 
 document.addEventListener("turbo:load", () => {
