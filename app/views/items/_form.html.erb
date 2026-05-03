@@ -7,8 +7,7 @@
 <%= form_with model: [@shop, @item],
       local: true,
       multipart: true,
-      authenticity_token: form_authenticity_token,
-      data: { turbo: false } do |f| %>
+      authenticity_token: form_authenticity_token do |f| %>
   <% if @item.errors.any? %>
     <div class="mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
       <h2 class="font-semibold"><%= @item.errors.count %>件のエラーがあります</h2>
@@ -69,10 +68,26 @@
       </div>
 
       <div class="mt-5">
-        <%= f.submit "AI解析して入力",
+        <%= f.button type: :submit,
               formaction: analyze_shop_items_path(@shop),
               formmethod: "post",
-              class: "inline-flex items-center justify-center rounded-full border border-ochre-300 bg-ochre-50 px-5 py-3 text-sm font-semibold text-ochre-800 transition hover:bg-ochre-100" %>
+              class: "inline-flex items-center justify-center gap-2 rounded-full border border-ochre-300 bg-ochre-50 px-5 py-3 text-sm font-semibold text-ochre-800 transition hover:bg-ochre-100 disabled:cursor-not-allowed disabled:opacity-70",
+              data: {
+                ai_analyze_submit: true,
+                ai_analyze_default_text: "AI解析して入力",
+                ai_analyze_loading_text: "解析中..."
+              } do %>
+          <svg
+            class="hidden h-4 w-4 animate-spin text-current"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+            data-ai-analyze-spinner="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-90" fill="currentColor" d="M12 2a10 10 0 0 1 10 10h-4a6 6 0 0 0-6-6V2Z"></path>
+          </svg>
+          <span data-ai-analyze-label="true">AI解析して入力</span>
+        <% end %>
       </div>
     <% end %>
 
