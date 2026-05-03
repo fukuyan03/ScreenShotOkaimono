@@ -179,11 +179,59 @@ const initializeImagePreviews = () => {
   });
 };
 
+const setAiAnalyzeButtonState = (button, loading) => {
+  if (!button) return;
+
+  const label = button.querySelector("[data-ai-analyze-label]");
+  const spinner = button.querySelector("[data-ai-analyze-spinner]");
+  const defaultText = button.dataset.aiAnalyzeDefaultText || "AI解析";
+  const loadingText = button.dataset.aiAnalyzeLoadingText || "解析中...";
+
+  button.disabled = loading;
+  button.setAttribute("aria-busy", loading ? "true" : "false");
+  button.classList.toggle("opacity-70", loading);
+  button.classList.toggle("cursor-not-allowed", loading);
+
+  if (label) {
+    label.textContent = loading ? loadingText : defaultText;
+  }
+
+  if (spinner) {
+    spinner.classList.toggle("hidden", !loading);
+  }
+};
+
+const initializeAiAnalyzeSubmitState = () => {
+  if (document.documentElement.dataset.aiAnalyzeSubmitInitialized === "true") return;
+
+  document.addEventListener("turbo:submit-start", (event) => {
+    const submitter = event.detail.formSubmission?.submitter;
+
+    if (!(submitter instanceof HTMLElement)) return;
+    if (!submitter.matches("[data-ai-analyze-submit]")) return;
+
+    setAiAnalyzeButtonState(submitter, true);
+  });
+
+  document.addEventListener("turbo:submit-end", (event) => {
+    const submitter = event.detail.formSubmission?.submitter;
+
+    if (!(submitter instanceof HTMLElement)) return;
+    if (!submitter.matches("[data-ai-analyze-submit]")) return;
+    if (event.detail.success) return;
+
+    setAiAnalyzeButtonState(submitter, false);
+  });
+
+  document.documentElement.dataset.aiAnalyzeSubmitInitialized = "true";
+};
+
 const initializePage = () => {
   initializeAutoResizeFields();
   initializeCopyButtons();
   initializeStatusArchiveForms();
   initializeImagePreviews();
+  initializeAiAnalyzeSubmitState();
 };
 
 document.addEventListener("turbo:load", () => {
