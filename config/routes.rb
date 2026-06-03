@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   end
 
   root "home#top"
+  get "/terms", to: "pages#terms"
+  get "/privacy", to: "pages#privacy"
 
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"
